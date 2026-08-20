@@ -1,0 +1,8 @@
+{
+  "test_sample_size": 2400,
+  "baseline_default_method": "Card",
+  "baseline_conversion_rate": 50.61,
+  "model_ranked_conversion_rate": 85.82,
+  "absolute_gain_pp": 35.21,
+  "relative_uplift_pct": 69.57
+}

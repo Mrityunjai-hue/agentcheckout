@@ -1,0 +1,19 @@
+{
+  "source": "Kaggle UPI Payment Transactions Benchmark 2024 (Statistically modeeled)",
+  "total_records": 12000,
+  "success_count": 9867,
+  "failure_count": 2133,
+  "success_rate_pct": 82.22,
+  "features": [
+    "transaction_id",
+    "payment_method",
+    "device_type",
+    "city_tier",
+    "network_type",
+    "hour_of_day",
+    "amount",
+    "amount_bucket",
+    "past_failed_attempts",
+    "success"
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "roc_auc": 0.7521,
+  "precision": 0.8702,
+  "recall": 0.8459,
+  "f1_score": 0.8579,
+  "confusion_matrix": [
+    [
+      178,
+      249
+    ],
+    [
+      304,
+      1669
+    ]
+  ],
+  "imbalance_handling": "SMOTE (Synthetic Minority Over-sampling Technique)",
+  "categorical_features": [
+    "payment_method",
+    "device_type",
+    "city_tier",
+    "network_type",
+    "amount_bucket"
+  ],
+  "numeric_features": [
+    "hour_of_day",
+    "past_failed_attempts",
+    "amount"
+  ],
+  "transformed_features": [
+    "payment_method_Netbanking",
+    "payment_method_PayLater",
+    "payment_method_UPI",
+    "payment_method_Wallet",
+    "device_type_Desktop",
+    "device_type_iOS",
+    "city_tier_Tier 2",
+    "city_tier_Tier 3",
+    "network_type_4G",
+    "network_type_5G",
+    "network_type_Wifi",
+    "amount_bucket_low",
+    "amount_bucket_med",
+    "amount_bucket_ultra_high",
+    "hour_of_day",
+    "past_failed_attempts",
+    "amount"
+  ],
+  "top_feature_importances": [
+    {
+      "feature": "payment_method_UPI",
+      "importance": 0.3019
+    },
+    {
+      "feature": "past_failed_attempts",
+      "importance": 0.1923
+    },
+    {
+      "feature": "hour_of_day",
+      "importance": 0.1495
+    },
+    {
+      "feature": "amount",
+      "importance": 0.0598
+    },
+    {
+      "feature": "payment_method_Wallet",
+      "importance": 0.0427
+    },
+    {
+      "feature": "city_tier_Tier 2",
+      "importance": 0.0405
+    },
+    {
+      "feature": "device_type_iOS",
+      "importance": 0.0389
+    },
+    {
+      "feature": "city_tier_Tier 3",
+      "importance": 0.0319
+    },
+    {
+      "feature": "payment_method_Netbanking",
+      "importance": 0.0287
+    },
+    {
+      "feature": "device_type_Desktop",
+      "importance": 0.0284
+    }
+  ]
+}
