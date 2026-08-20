@@ -1,0 +1,31 @@
+# Render.yaml - One-Click Cloud Infrastructure Specification
+
+services:
+  # FastAPI Webhook & FastMCP Server Service
+  - type: web
+    name: agentcheckout-api
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    region: singapore
+    envVars:
+      - key: RAZORPAY_KEY_ID
+        sync: false
+      - key: RAZORPAY_KEY_SECRET
+        sync: false
+      - key: RAZORPAY_WEBHOOK_SECRET
+        sync: false
+      - key: PORT
+        value: 8000
+
+  # Streamlit Growth Dashboard Service
+  - type: web
+    name: agentcheckout-dashboard
+    env: docker
+    dockerfilePath: ./Dockerfile
+    dockerCommand: streamlit run dashboard/app.py --server.port 8501 --server.address 0.0.0.0
+    plan: free
+    region: singapore
+    envVars:
+      - key: PORT
+        value: 8501
