@@ -77,6 +77,21 @@ app.add_middleware(
 # Mount webhook router
 app.include_router(webhook_router, prefix="", tags=["Webhooks"])
 
+@app.get("/")
+def root_index():
+    return {
+        "service": "AgentCheckout MCP & Webhook Engine",
+        "status": "online",
+        "track": "Track 1: AI Growth & Agentic Commerce (Razorpay AI Buildathon)",
+        "endpoints": {
+            "health": "/health",
+            "products_api": "/api/products",
+            "orders_api": "/api/orders",
+            "transactions_api": "/api/transactions",
+            "webhook": "POST /webhook"
+        }
+    }
+
 @app.get("/health")
 def health_check():
     return {
