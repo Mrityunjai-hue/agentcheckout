@@ -1,5 +1,7 @@
 # AgentCheckout ⚡
 > **Razorpay AI Buildathon — Track 1: AI Growth & Agentic Commerce**
+> 
+> 🌐 **Live Cloud Deployment**: [https://agentcheckout-dashboard.onrender.com/](https://agentcheckout-dashboard.onrender.com/)
 
 AgentCheckout is an agentic commerce storefront and machine-learning payment conversion ranking engine. It empowers autonomous AI agents to browse products, apply dynamic promotional discounts, create Razorpay test-mode orders, and execute purchases using **Conversion Intelligence** — a machine learning model that dynamically ranks payment options based on user context to maximize first-attempt payment conversion.
 
@@ -116,11 +118,12 @@ python run_all.py
 This automatically prepares dataset, trains ML model, computes uplift, seeds SQLite database, executes pytest unit tests, and launches the server on `http://localhost:8000`.
 
 ### 4. Launch Growth Dashboard
-In a separate terminal:
+- **Live Cloud Deployment**: [https://agentcheckout-dashboard.onrender.com/](https://agentcheckout-dashboard.onrender.com/)
+- **Or Run Locally** (in a separate terminal):
 ```bash
 python -m streamlit run dashboard/app.py
 ```
-Access dashboard at `http://localhost:8501`.
+Access local dashboard at `http://localhost:8501`.
 
 ### 5. Run Unit Tests
 ```bash
