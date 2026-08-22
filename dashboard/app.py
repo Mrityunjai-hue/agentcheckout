@@ -10,6 +10,7 @@ Multi-page Streamlit Dashboard for Razorpay AI Buildathon:
 import os
 import sys
 import json
+import random
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -360,18 +361,63 @@ elif page == "🎬 Live Agent Replay":
 
     st.subheader("Simulate Live Agent Purchase Right Now")
 
+    col_prod, col_mode = st.columns([2, 1])
+    with col_prod:
+        demo_prod_mode = st.selectbox(
+            "Catalog Product Selection",
+            [
+                "🎲 Random Catalog Product (Auto-selects each run)",
+                "🎧 UltraSlim Noise-Canceling Headphones (prod_101)",
+                "⌚ Smart Fitness Watch Gen 4 (prod_102)",
+                "🪑 Ergonomic Mesh Office Chair (prod_103)",
+                "☕ Organic Arabica Coffee Beans (prod_104)",
+                "🎒 Minimalist Leather Backpack (prod_105)",
+                "⌨️ Mechanical Gaming Keyboard RGB (prod_106)"
+            ],
+            index=0,
+            help="Select 'Random' to test different products and price points on every run for maximum robustness."
+        )
+
+    with col_mode:
+        randomize_ctx = st.checkbox("Variate User Context", value=True, help="Vary device, city tier, network, and time of day per run to test ML model adaptability.")
+
     if st.button("🚀 Run Live End-to-End Agent Purchase Demo"):
-        from mcp_server.tools import search_products, create_order, apply_offer, get_checkout_link, check_payment_status
+        from mcp_server.tools import search_products, get_product, create_order, apply_offer, get_checkout_link, check_payment_status
         import requests
 
-        with st.status("Executing Agent Purchase Sequence...", expanded=True) as status_box:
-            st.write("🔍 **Step 1**: Agent searching product catalog...")
-            prods = search_products("Headphones")
-            st.json(prods[0])
+        all_prods = search_products("")
+        if "prod_101" in demo_prod_mode:
+            target_prod = get_product("prod_101")
+        elif "prod_102" in demo_prod_mode:
+            target_prod = get_product("prod_102")
+        elif "prod_103" in demo_prod_mode:
+            target_prod = get_product("prod_103")
+        elif "prod_104" in demo_prod_mode:
+            target_prod = get_product("prod_104")
+        elif "prod_105" in demo_prod_mode:
+            target_prod = get_product("prod_105")
+        elif "prod_106" in demo_prod_mode:
+            target_prod = get_product("prod_106")
+        else:
+            target_prod = random.choice(all_prods) if all_prods else search_products("Headphones")[0]
 
-            st.write("📦 **Step 2**: Creating order with user context...")
+        if randomize_ctx:
+            u_ctx = {
+                "device_type": random.choice(["Android", "iOS", "Desktop"]),
+                "city_tier": random.choice(["Tier 1", "Tier 2", "Tier 3"]),
+                "network_type": random.choice(["4G", "5G", "Wifi", "3G"]),
+                "hour_of_day": random.randint(8, 22),
+                "past_failed_attempts": random.choice([0, 0, 1, 2])
+            }
+        else:
             u_ctx = {"device_type": "Android", "city_tier": "Tier 2", "network_type": "4G", "hour_of_day": 20, "past_failed_attempts": 0}
-            ord_res = create_order(prods[0]["id"], u_ctx)
+
+        with st.status(f"Executing Agent Purchase Sequence for '{target_prod['name']}'...", expanded=True) as status_box:
+            st.write(f"🔍 **Step 1**: Agent selected product **{target_prod['name']}** (`{target_prod['id']}`) at **₹{target_prod['price']}**...")
+            st.json(target_prod)
+
+            st.write(f"📦 **Step 2**: Creating order with context (`{u_ctx['device_type']}`, `{u_ctx['city_tier']}`, `{u_ctx['network_type']}`)...")
+            ord_res = create_order(target_prod["id"], u_ctx)
             st.json(ord_res)
 
             st.write("🏷️ **Step 3**: Applying promotional discount code `WELCOME10`...")

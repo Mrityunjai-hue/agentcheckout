@@ -29,5 +29,5 @@ RUN python ml/prepare_dataset.py && \
 
 EXPOSE 8000
 
-# Run FastAPI / FastMCP server with Uvicorn
-CMD ["uvicorn", "mcp_server.server:app", "--host", "0.0.0.0", "--port", "8000"]
+# Run entrypoint launcher (defaults to Streamlit Growth Dashboard)
+CMD ["python", "start_server.py"]
